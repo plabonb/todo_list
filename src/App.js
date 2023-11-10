@@ -24,7 +24,7 @@ function App() {
 
   const handleDeleteTodos = (index) => {
     let reducedTodo = [...allTodos];
-    reducedTodo.splice(index,1);
+    reducedTodo.splice(index, 1);
 
     localStorage.setItem("todolist", JSON.stringify(reducedTodo));
     setTodos(reducedTodo);
@@ -39,7 +39,7 @@ function App() {
     let m = now.getMinutes();
     let s = now.getSeconds();
     let completedOn =
-      dd + "/" + mm + "/" + yyy + "/" + " at " + h + ":" + m + ":" + s;
+      dd + "/" + mm + "/" + yyy + " at " + h + ":" + m + ":" + s;
 
     let filteredItem = {
       ...allTodos[index],
@@ -55,7 +55,7 @@ function App() {
 
   const handleDeleteCompletedTodos = (index) => {
     let reducedTodo = [...completedTodos];
-    reducedTodo.splice(index,1);
+    reducedTodo.splice(index, 1);
 
     localStorage.setItem("completedTodos", JSON.stringify(reducedTodo));
     setCompletedTodos(reducedTodo);
@@ -97,7 +97,7 @@ function App() {
               placeholder="What's the task description?"
             />
           </div>
-          <div className="todo-input-item">
+          <div className="todo-addinput-item">
             <button
               type="button"
               onClick={handleAddTodo}

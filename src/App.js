@@ -22,15 +22,15 @@ function App() {
     localStorage.setItem("todolist", JSON.stringify(updatedTodoArr));
   };
 
-  const handleDeleteTodos = index => {
+  const handleDeleteTodos = (index) => {
     let reducedTodo = [...allTodos];
-    reducedTodo.splice(index);
+    reducedTodo.splice(index,1);
 
     localStorage.setItem("todolist", JSON.stringify(reducedTodo));
     setTodos(reducedTodo);
   };
 
-  const handleComplete = index => {
+  const handleComplete = (index) => {
     let now = new Date();
     let dd = now.getDate();
     let mm = now.getMonth();
@@ -50,17 +50,25 @@ function App() {
     updatedCompletedArr.push(filteredItem);
     setCompletedTodos(updatedCompletedArr);
     handleDeleteTodos(index);
-    localStorage.setItem('completedTodos', JSON.stringify (updatedCompletedArr));
+    localStorage.setItem("completedTodos", JSON.stringify(updatedCompletedArr));
+  };
+
+  const handleDeleteCompletedTodos = (index) => {
+    let reducedTodo = [...completedTodos];
+    reducedTodo.splice(index,1);
+
+    localStorage.setItem("completedTodos", JSON.stringify(reducedTodo));
+    setCompletedTodos(reducedTodo);
   };
 
   useEffect(() => {
     let savedTodo = JSON.parse(localStorage.getItem("todolist"));
-    let savedCompletedTodo = JSON.parse(localStorage.getItem("completedTodo"));
+    let savedCompletedTodo = JSON.parse(localStorage.getItem("completedTodos"));
     if (savedTodo) {
       setTodos(savedTodo);
     }
 
-    if(savedCompletedTodo){
+    if (savedCompletedTodo) {
       setCompletedTodos(savedCompletedTodo);
     }
   }, []);
@@ -150,12 +158,15 @@ function App() {
                 <div className="todo-list-item" key={index}>
                   <div>
                     <h3>{item.title}</h3>
-                    <p><small>Completed on: {item.completedOn}</small></p>
+                    <p>{item.description}</p>
+                    <p>
+                      <small>Completed on: {item.completedOn}</small>
+                    </p>
                   </div>
                   <div>
                     <AiOutlineDelete
                       className="icon"
-                      onClick={() => handleDeleteTodos(index)}
+                      onClick={() => handleDeleteCompletedTodos(index)}
                       title="Delete?"
                     />
                   </div>
